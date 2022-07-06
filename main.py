@@ -1,36 +1,38 @@
 import pygame
+from partie import Partie
+
+#initialisation des different pion
 
 info_pion = {}
 color = ["blanc", "noir"]
+type_pion = ["soldat", "tour", "cavalier", "fou", "reine", "roi"]
+nombre_pion = [8, 2, 2, 2, 1, 1]
 
 for i in range(2):
-    pion = {"soldat": ["images/soldat" + color[i] + ".png", 8], "tour": ["images/soldat" + color[i] + ".png", 8]}
+    liste = []
+    pion = {}
+    for j, valeur in enumerate(type_pion):
+        pion[valeur] = ["images/"+type_pion[j]+color[i]+".png", nombre_pion[j]]
     info_pion[color[i]] = pion
 
 print(info_pion)
 
 
-def lancee_jeu(liste_image):
-    while True:
-        dificulter = int(input("La difficulté va de 1 à 8. Nombre indisponible (7). Niveau recommandé (8):"))
-        if dificulter != 7:
-            break
-        else:
-            print("Veuillez renseigner une valeur valable !")
+def lancee_jeu(info_pion):
 
     pygame.init()
 
-    pygame.display.set_caption("Memo Melo")
+    pygame.display.set_caption("jeu echecs")
     fenetre = pygame.display.set_mode((1000, 1000))
 
-    partie = Partie(dificulter, liste_image)
+    partie = Partie(info_pion)
 
     lancée = True
     finie = False
 
     while lancée:
 
-        partie.groupe_carte.draw(fenetre)
+        partie.groupe_pion.draw(fenetre)
 
         pygame.display.flip()
 
@@ -47,6 +49,7 @@ def lancee_jeu(liste_image):
             if event.type == pygame.QUIT:
                 lancée = False
                 pygame.quit()
+
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 p = pygame.mouse.get_pos()
@@ -67,6 +70,6 @@ def lancee_jeu(liste_image):
 while True:
     rejouet = str(input("Voulez vous jouer (OUI/NON) :"))
     if rejouet.upper() == "OUI":
-        lancee_jeu(liste_image)
+        lancee_jeu(info_pion)
     else:
         break
