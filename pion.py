@@ -3,7 +3,7 @@ import pygame.sprite
 
 class Pion(pygame.sprite.Sprite):
 
-    def __init__(self, ID, TYPE, COLOR):
+    def __init__(self, ID, TYPE, COLOR, IMAGE, POSITION):
         self.__init__()
         self.id = ID
         self.type = TYPE
